@@ -37,6 +37,10 @@ class Main {
 			clear();
 			game.printStats();
 			game.printScreen();
+			
+			if (game.distance % game.difficuilty == 0 && Math.random() > 0.8) {
+				game.addAstroid();
+			}
 		}
 	}
 
@@ -88,6 +92,6 @@ class Main {
 		System.out.println("\t\t\t\t\t\t				2: Medium\t\t\t  ||");
 		System.out.println("\t\t\t\t\t\t				3: Hard\t\t\tmore obstacles");
 		System.out.print("\nDifficuilty (1|2|3): ");
-		return input.nextInt();
+		return 9 - input.nextInt() * 3;
 	}
 }
