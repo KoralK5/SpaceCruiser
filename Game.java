@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
 
 public class Game {
     boolean alive = true;
@@ -11,6 +12,14 @@ public class Game {
 	int columns = 50;
 
 	String screen[][] = new String[rows][columns];
+	
+	public Game() {
+		for (int i=0; i<this.screen.length; i++) {
+			for (int j=0; j<this.screen[i].length; j++) {
+				this.screen[i][j] = " ";
+			}
+		}
+	}
 
 	public void play() {
 		;
@@ -18,16 +27,16 @@ public class Game {
 
 	public void addAstroid() {
 		int location = (int) (Math.random() * (rows-1));
-		screen[rows][location] = "*";
+		this.screen[location][columns-1] = "*";
 	}
 
 	public int setDifficuilty(int difficuilty) {
 	    return this.difficuilty = difficuilty; 
 	}
 
-	public void wait(int seconds) {
+	public void wait(int ms) {
 		try {
-			TimeUnit.SECONDS.sleep(seconds);
+			TimeUnit.MILLISECONDS.sleep(ms);
 		}
 		catch(InterruptedException e) {}
 	}
@@ -61,8 +70,12 @@ public class Game {
 	public void printScreen() {
 		System.out.println("-".repeat(this.columns));
 
-		for (int i = -2; i<this.rows; i++) {
-			System.out.println("|" + " ".repeat(this.columns) + "|");
+		for (int i = 0; i<this.rows; i++) {
+			System.out.print("|");
+			for (int j = 0; j<this.columns; j++) {
+				System.out.print(this.screen[i][j]);
+			}
+			System.out.println("|");
 		}
 
 		System.out.println("-".repeat(this.columns));
