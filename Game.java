@@ -1,12 +1,25 @@
- import java.util.*;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Game {
-    private boolean alive = true;
-	private int score = 0;
-	private int difficuilty;
-	private int rows = 10;
-	private int columns = 50;
+    boolean alive = true;
+	int score = 0;
+	int distance = 0;
+	int difficuilty = 4;
+	
+	int rows = 10;
+	int columns = 50;
+
+	String screen[][] = new String[rows][columns];
+
+	public void play() {
+		;
+	}
+
+	public void addAstroid() {
+		int location = (int) (Math.random() * (rows-1));
+		screen[rows][location] = "*";
+	}
 
 	public int setDifficuilty(int difficuilty) {
 	    return this.difficuilty = difficuilty; 
@@ -48,8 +61,8 @@ public class Game {
 	public void printScreen() {
 		System.out.println("-".repeat(this.columns));
 
-		for (int i = 0; i<this.rows; i++) {
-			System.out.println("|" + " ".repeat(this.columns-2) + "|");
+		for (int i = -2; i<this.rows; i++) {
+			System.out.println("|" + " ".repeat(this.columns) + "|");
 		}
 
 		System.out.println("-".repeat(this.columns));
