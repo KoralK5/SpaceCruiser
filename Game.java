@@ -19,15 +19,38 @@ public class Game {
 				this.screen[i][j] = " ";
 			}
 		}
+		this.screen[this.rows/2][1] = "🚀";
 	}
 
-	public void play() {
-		;
+	public void moveSpaceship() {
+		for (int i=0; i<this.screen.length; i++) {
+			for (int j=0; j<this.screen[i].length; j++) {
+				if (this.screen[i][j] == "💥") {
+					this.screen[i][j] = " ";
+					if (j > 0) {
+						this.screen[i][j-1] = "💥";
+					}
+				}
+			}
+		}
 	}
 
 	public void addAstroid() {
 		int location = (int) (Math.random() * (rows-1));
-		this.screen[location][columns-1] = "*";
+		this.screen[location][columns-1] = "💥";
+	}
+
+	public void moveAstroids() {
+		for (int i=0; i<this.screen.length; i++) {
+			for (int j=0; j<this.screen[i].length; j++) {
+				if (this.screen[i][j] == "💥") {
+					this.screen[i][j] = " ";
+					if (j > 0) {
+						this.screen[i][j-1] = "💥";
+					}
+				}
+			}
+		}
 	}
 
 	public int setDifficuilty(int difficuilty) {
@@ -61,23 +84,22 @@ public class Game {
 	public void printStats() {
 		String diff = this.difficuilty==1 ? "easy" : (this.difficuilty==2 ? "medium" : "hard");
 
-		System.out.println("-".repeat(this.columns+2));
+		System.out.println("-".repeat(this.columns));
 		System.out.print(" SPACE CRUISER | ");
 		System.out.print("Difficuilty: " + diff + " | ");
 		System.out.println("Score: " + this.score);
 	}
 
 	public void printScreen() {
-		System.out.println("-".repeat(this.columns+2));
+		System.out.println("-".repeat(this.columns));
 
 		for (int i = 0; i<this.rows; i++) {
 			System.out.print("|");
 			for (int j = 0; j<this.columns; j++) {
 				System.out.print(this.screen[i][j]);
 			}
-			System.out.println("|");
+			System.out.println();
 		}
-
 		System.out.println("-".repeat(this.columns));
 	}
 
