@@ -1,9 +1,9 @@
-import java.util.*;
+ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class Game
-{
+public class Game {
     private boolean alive = true;
+	private int score = 0;
 	private int difficuilty;
 	private int rows = 10;
 	private int columns = 50;
@@ -38,10 +38,11 @@ public class Game
 
 	public void printStats() {
 		String diff = this.difficuilty==1 ? "easy" : (this.difficuilty==2 ? "medium" : "hard");
-		String whitespace = " - ".repeat(columns/4);
-		System.out.print("SPACE CRUISER" + whitespace);
-		System.out.print("Difficuilty: " + this.difficuilty + whitespace);
-		System.out.println("Score: " + whitespace);
+
+		System.out.println("-".repeat(this.columns));
+		System.out.print("SPACE CRUISER | ");
+		System.out.print("Difficuilty: " + diff + " | ");
+		System.out.println("Score: " + this.score);
 	}
 
 	public void printScreen() {
