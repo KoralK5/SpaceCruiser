@@ -61,14 +61,14 @@ public class Game {
 	public void printStats() {
 		String diff = this.difficuilty==1 ? "easy" : (this.difficuilty==2 ? "medium" : "hard");
 
-		System.out.println("-".repeat(this.columns));
-		System.out.print("SPACE CRUISER | ");
+		System.out.println("-".repeat(this.columns+2));
+		System.out.print(" SPACE CRUISER | ");
 		System.out.print("Difficuilty: " + diff + " | ");
 		System.out.println("Score: " + this.score);
 	}
 
 	public void printScreen() {
-		System.out.println("-".repeat(this.columns));
+		System.out.println("-".repeat(this.columns+2));
 
 		for (int i = 0; i<this.rows; i++) {
 			System.out.print("|");
