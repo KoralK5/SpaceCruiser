@@ -34,6 +34,8 @@ class Main {
 		game.countdown();
 		
 		while (true) {
+			game.distance++;
+
 			clear();
 			game.printStats();
 			game.printScreen();
@@ -92,6 +94,6 @@ class Main {
 		System.out.println("\t\t\t\t\t\t				2: Medium\t\t\t  ||");
 		System.out.println("\t\t\t\t\t\t				3: Hard\t\t\tmore obstacles");
 		System.out.print("\nDifficuilty (1|2|3): ");
-		return 9 - input.nextInt() * 3;
+		return 12 - input.nextInt() * 3;
 	}
 }
