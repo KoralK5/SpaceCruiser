@@ -1,12 +1,10 @@
 import java.util.*;
-import java.util.Scanner;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.awt.event.KeyAdapter;
+
 import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
+import java.awt.event.KeyListener;
+import javax.swing.*;
 
 class Main {
 	static Scanner input = new Scanner(System.in);
@@ -16,9 +14,9 @@ class Main {
 		clear();
 		art();
 		space(4);
-		System.out.println("\t\t\t\t\t\tWELCOME TO SPACE CRUISER!");
+		System.out.println("\t\tWELCOME TO SPACE CRUISER!");
 		space(4);
-		System.out.print("\t\t\t\t\t\t  Press enter to play:  ");
+		System.out.print("\t\t  Press enter to play:  ");
 		input.nextLine();
 		
 		clear();
@@ -35,18 +33,36 @@ class Main {
 		art();
 		space(4);
 		game.setDifficuilty(chooseDifficuilty());
-		game.countdown();
-		
-		JTextField textField = new JTextField();
-		textField.addKeyListener(new MKeyListener());
-		JFrame jframe = new JFrame();
-		jframe.add(textField);
-		jframe.setSize(400, 350);
-		jframe.setVisible(true);
+		countdown();
 
+		JFrame frame = new JFrame();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(400, 400);
+		frame.setFocusable(true);
+
+		JPanel panel = new JPanel();
+		
+		frame.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent event) {
+				int typed = event.getKeyCode();
+				game.moveSpaceship(typed);
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+		});
+
+		frame.add(panel);
 
 		while (true) {
-			game.wait(100);
+			wait(100);
 			game.distance++;
 
 			clear();
@@ -66,7 +82,7 @@ class Main {
 	}
 
 	public static void space(int lines) {
-		System.out.println("\n".repeat(lines));
+		System.out.println(String.join("", Collections.nCopies(lines, "\n")));
 	}
 
 	public static void art() {
@@ -95,27 +111,44 @@ class Main {
 	}
 
 	public static void rules() {
-		System.out.println("\t\t\t\t\t\t            THE RULES\n");
-		System.out.println("\t\t\t\t\t\t1: Press {enter} to switch directions");
-		System.out.println("\t\t\t\t\t\t2: Avoid all obstancles");
-		System.out.println("\t\t\t\t\t\t3: Survive as long as possible");
+		System.out.println("\t\t            THE RULES\n");
+		System.out.println("\t\t1: Press {enter} to switch directions");
+		System.out.println("\t\t2: Avoid all obstancles");
+		System.out.println("\t\t3: Survive as long as possible");
 		System.out.print("\nContinue? ");
 		input.nextLine();
 	}
 
 	public static int chooseDifficuilty() {
-		System.out.println("\t\t\t\t\t\t            CHOOSE DIFFICUILTY\n");
-		System.out.println("\t\t\t\t\t\t				1: Easy\t\t\tless obstacles");
-		System.out.println("\t\t\t\t\t\t				2: Medium\t\t\t  ||");
-		System.out.println("\t\t\t\t\t\t				3: Hard\t\t\tmore obstacles");
+		System.out.println("\t\t            CHOOSE DIFFICUILTY\n");
+		System.out.println("\t\t1: Easy\t\t\tless obstacles");
+		System.out.println("\t\t2: Medium\t\t\t|");
+		System.out.println("\t\t3: Hard\t\t\tmore obstacles");
 		System.out.print("\nDifficuilty (1|2|3): ");
 		return 12 - input.nextInt() * 3;
 	}
-
-    public static void keyPressed(KeyEvent event) {
-		char ch = event.getKeyChar();
-		if (ch == 'w' || ch == 'a' || ch == 's' || ch == 'd') {
-			game.moveSpaceship(ch);
+	
+	public static void wait(int ms) {
+		try {
+			TimeUnit.MILLISECONDS.sleep(ms);
 		}
-    }
+		catch(InterruptedException e) {}
+	}
+
+	public static void countdown() {
+		Main.clear();
+		System.out.print(String.join("", Collections.nCopies(2, "\t\t\t\t|\n")));
+		System.out.println("\t\t\t\t3");
+		wait(1000);
+
+		Main.clear();
+		System.out.print(String.join("", Collections.nCopies(4, "\t\t\t\t|\n")));
+		System.out.print("\t\t\t\t2");
+		wait(1000);
+
+		Main.clear();
+		System.out.print(String.join("", Collections.nCopies(6, "\t\t\t\t|\n")));
+		System.out.print("\t\t\t\t1");
+		wait(1000);
+	}
 }
