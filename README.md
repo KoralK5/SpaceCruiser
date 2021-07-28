@@ -10,3 +10,5 @@ A Java game made for ICS3U8G
 2. Avoid all obstancles
 
 3. Survive as long as possible
+
+![image](https://user-images.githubusercontent.com/62809012/127244256-0aa74b12-ff70-4f44-8d05-48f433209f98.png)
