@@ -8,8 +8,8 @@ public class Game {
 	int distance = 0;
 	int difficuilty = 4;
 	
-	int rows = 10;
-	int columns = 50;
+	int rows = 20;
+	int columns = 80;
 
 	String screen[][] = new String[rows][columns];
 	
