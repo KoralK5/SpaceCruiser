@@ -1,128 +1,119 @@
 import java.util.*;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
+import java.util.Arrays;
 
-class Main {
-	static Scanner input = new Scanner(System.in);
-	static Game game = new Game();
-
-	public static void main(String[] args) {
-		clear();
-		art();
-		space(4);
-		System.out.println("\t\t\t\t\t\tWELCOME TO SPACE CRUISER!");
-		space(4);
-		System.out.print("\t\t\t\t\t\t  Press enter to play:  ");
-		input.nextLine();
-		
-		clear();
-		art();
-		space(4);
-		story();
-
-		clear();
-		art();
-		space(4);
-		rules();
-		
-		clear();
-		art();
-		space(4);
-		game.setDifficuilty(chooseDifficuilty());
-		game.countdown();
-		
-		JTextField textField = new JTextField();
-		textField.addKeyListener(new MKeyListener());
-		JFrame jframe = new JFrame();
-		jframe.add(textField);
-		jframe.setSize(400, 350);
-		jframe.setVisible(true);
-
-		while (true) {
-			game.wait(100);
-			game.distance++;
-
-			clear();
-			game.printStats();
-			game.printScreen();
-
-			game.moveAstroids();
-			game.moveSpaceship();
-			if (game.distance % game.difficuilty == 0 && Math.random() > 0.8) {
-				game.score++;
-				game.addAstroid();
-			}
-		}
-	}
-
-	public static void clear() {
-		System.out.println("\033[H\033[2J");
-	}
-
-	public static void space(int lines) {
-		System.out.println("\n".repeat(lines));
-	}
-
-	public static void art() {
-		try {
-			File myObj = new File("Spaceship.txt");
-			Scanner myReader = new Scanner(myObj);
-			while (myReader.hasNextLine()) {
-				String data = myReader.nextLine();
-				System.out.println(data);
-			}
-		myReader.close();
-		}
-
-		catch (FileNotFoundException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-	}
-
-	public static void story() {
-		System.out.println("Ever since the Earth was destroyed, humanity has been left stranded in a space cruiser with little to no resources left.\n");
-		System.out.println("With the objective of searching for a sustainable planet, you set foot in your spaceship and set sail into the abyss of space...\n");
-		System.out.println("Good luck!\n");
-		System.out.print("Continue? ");
-		input.nextLine();
-	}
-
-	public static void rules() {
-		System.out.println("\t\t\t\t\t\t            THE RULES\n");
-		System.out.println("\t\t\t\t\t\t1: Press {enter} to switch directions");
-		System.out.println("\t\t\t\t\t\t2: Avoid all obstancles");
-		System.out.println("\t\t\t\t\t\t3: Survive as long as possible");
-		System.out.print("\nContinue? ");
-		input.nextLine();
-	}
-
-	public static int chooseDifficuilty() {
-		System.out.println("\t\t\t\t\t\t            CHOOSE DIFFICUILTY\n");
-		System.out.println("\t\t\t\t\t\t				1: Easy\t\t\tless obstacles");
-		System.out.println("\t\t\t\t\t\t				2: Medium\t\t\t  ||");
-		System.out.println("\t\t\t\t\t\t				3: Hard\t\t\tmore obstacles");
-		System.out.print("\nDifficuilty (1|2|3): ");
-		return 12 - input.nextInt() * 3;
-	}
-}
-
-class MKeyListener extends KeyAdapter {
-    @Override
-    public void keyPressed(KeyEvent event) {
-		char ch = event.getKeyChar();
+public class Game {
+    boolean alive = true;
+	int score = 0;
+	int distance = 0;
+	int difficuilty = 4;
 	
-		if (ch == 'w' || ch == 'a'|| ch == 's' || ch == 'd') {
-			System.out.println(event.getKeyChar());
+	int rows = 20;
+	int columns = 80;
+
+	int rocketRow = rows/2;
+	int rocketCol = 1;
+
+	String screen[][] = new String[rows][columns];
+	
+	public Game() {
+		for (int i=0; i<this.screen.length; i++) {
+			for (int j=0; j<this.screen[i].length; j++) {
+				this.screen[i][j] = " ";
+			}
 		}
-		if (event.getKeyCode() == KeyEvent.VK_HOME) {
-			System.out.println("Key codes: " + event.getKeyCode());
+		this.screen[rocketRow][rocketCol] = "🚀";
+	}
+
+	public void moveSpaceship(char direction) {
+		this.screen[rocketRow][rocketCol] = " ";
+		if (direction == 'w') {
+			rocketRow++;
 		}
+
+		if (direction == 'a') {
+			rocketRow++;
+		}
+		
+		if (direction == 's') {
+			rocketCol++;
+		}
+
+		if (direction == 'd') {
+			rocketCol++;
+		}
+		this.screen[rocketRow][rocketCol] = "🚀";
+	}
+
+	public void addAstroid() {
+		int location = (int) (Math.random() * (rows-1));
+		this.screen[location][columns-1] = "💥";
+	}
+
+	public void moveAstroids() {
+		for (int i=0; i<this.screen.length; i++) {
+			for (int j=0; j<this.screen[i].length; j++) {
+				if (this.screen[i][j] == "💥") {
+					this.screen[i][j] = " ";
+					if (j > 0) {
+						this.screen[i][j-1] = "💥";
+					}
+				}
+			}
+		}
+	}
+
+	public int setDifficuilty(int difficuilty) {
+	    return this.difficuilty = difficuilty; 
+	}
+
+	public void wait(int ms) {
+		try {
+			TimeUnit.MILLISECONDS.sleep(ms);
+		}
+		catch(InterruptedException e) {}
+	}
+
+	public void countdown() {
+		Main.clear();
+		System.out.print("\t\t\t\t\t\t|\n".repeat(2));
+		System.out.println("\t\t\t\t\t\t3");
+		wait(1);
+
+		Main.clear();
+		System.out.print("\t\t\t\t\t\t|\n".repeat(4));
+		System.out.print("\t\t\t\t\t\t2");
+		wait(1);
+
+		Main.clear();
+		System.out.print("\t\t\t\t\t\t|\n".repeat(6));
+		System.out.print("\t\t\t\t\t\t1");
+		wait(1);
+	}
+
+	public void printStats() {
+		String diff = this.difficuilty==1 ? "easy" : (this.difficuilty==2 ? "medium" : "hard");
+
+		System.out.println("-".repeat(this.columns));
+		System.out.print("| SPACE CRUISER | ");
+		System.out.print("Difficuilty: " + diff + " | ");
+		System.out.println("Score: " + this.score);
+	}
+
+	public void printScreen() {
+		System.out.println("-".repeat(this.columns));
+
+		for (int i = 0; i<this.rows; i++) {
+			System.out.print("|");
+			for (int j = 0; j<this.columns; j++) {
+				System.out.print(this.screen[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println("-".repeat(this.columns));
+	}
+
+    public String toString(){
+        return alive ? "Game Ongoing!" : "Game Ended!";
     }
 }
