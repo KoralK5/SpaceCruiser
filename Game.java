@@ -32,11 +32,11 @@ public class Game {
 		}
 
 		if (direction == 'a') {
-			rocketRow++;
+			rocketCol--;
 		}
 		
 		if (direction == 's') {
-			rocketCol++;
+			rocketRow--;
 		}
 
 		if (direction == 'd') {
@@ -104,11 +104,7 @@ public class Game {
 		System.out.println("-".repeat(this.columns));
 
 		for (int i = 0; i<this.rows; i++) {
-			System.out.print("|");
-			for (int j = 0; j<this.columns; j++) {
-				System.out.print(this.screen[i][j]);
-			}
-			System.out.println();
+			System.out.println("|" + String.join("", this.screen[i]));
 		}
 		System.out.println("-".repeat(this.columns));
 	}
