@@ -3,6 +3,10 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 class Main {
 	static Scanner input = new Scanner(System.in);
@@ -33,6 +37,13 @@ class Main {
 		game.setDifficuilty(chooseDifficuilty());
 		game.countdown();
 		
+		JTextField textField = new JTextField();
+		textField.addKeyListener(new MKeyListener());
+		JFrame jframe = new JFrame();
+		jframe.add(textField);
+		jframe.setSize(400, 350);
+		jframe.setVisible(true);
+
 		while (true) {
 			game.wait(100);
 			game.distance++;
@@ -100,4 +111,18 @@ class Main {
 		System.out.print("\nDifficuilty (1|2|3): ");
 		return 12 - input.nextInt() * 3;
 	}
+}
+
+class MKeyListener extends KeyAdapter {
+    @Override
+    public void keyPressed(KeyEvent event) {
+		char ch = event.getKeyChar();
+	
+		if (ch == 'w' || ch == 'a'|| ch == 's' || ch == 'd') {
+			System.out.println(event.getKeyChar());
+		}
+		if (event.getKeyCode() == KeyEvent.VK_HOME) {
+			System.out.println("Key codes: " + event.getKeyCode());
+		}
+    }
 }
