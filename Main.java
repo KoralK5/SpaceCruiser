@@ -11,67 +11,91 @@ class Main {
 	static Game game = new Game();
 
 	public static void main(String[] args) {
-		clear();
-		art();
-		space(4);
-		System.out.println("\t\tWELCOME TO SPACE CRUISER!");
-		space(4);
-		System.out.print("\t\t  Press enter to play:  ");
-		input.nextLine();
-		
-		clear();
-		art();
-		space(4);
-		story();
+	    boolean exit = false;
+	    int record = 0;
+		while (!exit) {
+    		clear();
+    		art();
+    		space(4);
+    		System.out.println("\t\tWELCOME TO SPACE CRUISER!");
+    		space(4);
+    		System.out.print("\t\t  Press enter to play:  ");
+    		input.nextLine();
+    		
+    		clear();
+    		art();
+    		space(2);
+    		story();
+    
+    		clear();
+    		art();
+    		rules();
+    		
+    		clear();
+    		art();
+    		space(2);
+    		game.setDifficuilty(chooseDifficuilty());
+    		countdown();
+    
+    		JFrame frame = new JFrame();
+    		frame.setVisible(true);
+    		frame.setFocusable(true);
+    		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    		
+    		frame.addKeyListener(new KeyListener() {
+    			@Override
+    			public void keyPressed(KeyEvent event) {
+    				int typed = event.getKeyCode();
+    				game.moveSpaceship(typed);
+    			}
+    
+    			@Override
+    			public void keyReleased(KeyEvent e) {
+    			}
+    
+    			@Override
+    			public void keyTyped(KeyEvent e) {
+    			}
+    		});
+    
+            JPanel panel = new JPanel();
+    		frame.add(panel);
+    
+    		while (game.isOngoing()) {
+    			wait(game.difficuilty*15);
+    			game.distance++;
+    
+    			clear();
+    			game.printStats();
+    			game.printScreen();
+    
+    			game.moveAstroids();
 
-		clear();
-		art();
-		space(4);
-		rules();
-		
-		clear();
-		art();
-		space(4);
-		game.setDifficuilty(chooseDifficuilty());
-		countdown();
-
-		JFrame frame = new JFrame();
-		frame.setVisible(true);
-		frame.setFocusable(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		frame.addKeyListener(new KeyListener() {
-			@Override
-			public void keyPressed(KeyEvent event) {
-				int typed = event.getKeyCode();
-				game.moveSpaceship(typed);
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-		});
-
-        JPanel panel = new JPanel();
-		frame.add(panel);
-
-		while (true) {
-			wait(game.difficuilty*15);
-			game.distance++;
-
-			clear();
-			game.printStats();
-			game.printScreen();
-
-			game.moveAstroids();
-			if (game.distance % game.difficuilty == 0 && Math.random() > 0.6) {
-				game.score++;
-				game.addAstroid();
-			}
+				if (game.score % 30 == 0) {
+					game.shoot();
+				}
+    			
+    			if (game.distance % game.difficuilty == 0 && Math.random() > 0.6) {
+    				game.score++;
+    				game.addAstroid();
+    			}
+    		}
+    		
+    		clear();
+    		art();
+    		space(2);
+    		if (game.score > record) {
+    		    System.out.println("\t\t\tNEW RECORD!!!");
+    		    record = game.score;
+    		}
+    		
+    		System.out.println("\n\t\t\tScore: " + game.score);
+    		System.out.println("\t\t\tDistance: " + game.distance);
+    		
+    		System.out.println("\n\nGo again? ([Y]es or [N]o)");
+    		String choice = input.nextLine().toLowerCase();
+    		
+    		exit = (choice == "n" || choice == "no");
 		}
 	}
 
@@ -113,16 +137,20 @@ class Main {
 		System.out.println("\t\t1: Click the graphics screen once");
 		System.out.println("\t\t2: Use arrow keys to avoid all obstacles");
 		System.out.println("\t\t3: Survive as long as possible");
+		System.out.println("\nYou shoot every time you get 30 points");
+		System.out.println("Your Rocket:      🚀");
+		System.out.println("Harmful Astroid:  💥");
+		System.out.println("Harmless Astroid: 💨");
 		System.out.print("\nContinue? ");
 		input.nextLine();
 	}
 
 	public static int chooseDifficuilty() {
-		System.out.println("\t\t            CHOOSE DIFFICUILTY\n");
-		System.out.println("\t\t1: Easy\t\t\tless obstacles");
-		System.out.println("\t\t2: Medium\t\t\t|");
-		System.out.println("\t\t3: Hard\t\t\tmore obstacles");
-		System.out.print("\nDifficuilty (1|2|3): ");
+		System.out.println("\n\t\t\tCHOOSE DIFFICUILTY\n");
+		System.out.println("\t\t\t\t1: Easy");
+		System.out.println("\t\t\t\t2: Medium");
+		System.out.println("\t\t\t\t3: Hard");
+		System.out.print("\n\nDifficuilty (1|2|3): ");
 		return 10 - input.nextInt() * 3;
 	}
 	
