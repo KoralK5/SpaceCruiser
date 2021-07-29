@@ -71,7 +71,6 @@ public class Game {
 	    return this.score += score; 
 	}
 
-
 	public void printStats() {
 		String diff = difficuilty==1 ? "easy" : (difficuilty==2 ? "medium" : "hard");
 
