@@ -37,11 +37,8 @@ class Main {
 
 		JFrame frame = new JFrame();
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 400);
 		frame.setFocusable(true);
-
-		JPanel panel = new JPanel();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.addKeyListener(new KeyListener() {
 			@Override
@@ -59,10 +56,11 @@ class Main {
 			}
 		});
 
+        JPanel panel = new JPanel();
 		frame.add(panel);
 
 		while (true) {
-			wait(100);
+			wait(game.difficuilty*15);
 			game.distance++;
 
 			clear();
@@ -70,7 +68,7 @@ class Main {
 			game.printScreen();
 
 			game.moveAstroids();
-			if (game.distance % game.difficuilty == 0 && Math.random() > 0.8) {
+			if (game.distance % game.difficuilty == 0 && Math.random() > 0.6) {
 				game.score++;
 				game.addAstroid();
 			}
@@ -112,8 +110,8 @@ class Main {
 
 	public static void rules() {
 		System.out.println("\t\t            THE RULES\n");
-		System.out.println("\t\t1: Press {enter} to switch directions");
-		System.out.println("\t\t2: Avoid all obstancles");
+		System.out.println("\t\t1: Click the graphics screen once");
+		System.out.println("\t\t2: Use arrow keys to avoid all obstacles");
 		System.out.println("\t\t3: Survive as long as possible");
 		System.out.print("\nContinue? ");
 		input.nextLine();
@@ -125,14 +123,15 @@ class Main {
 		System.out.println("\t\t2: Medium\t\t\t|");
 		System.out.println("\t\t3: Hard\t\t\tmore obstacles");
 		System.out.print("\nDifficuilty (1|2|3): ");
-		return 12 - input.nextInt() * 3;
+		return 10 - input.nextInt() * 3;
 	}
 	
 	public static void wait(int ms) {
 		try {
 			TimeUnit.MILLISECONDS.sleep(ms);
 		}
-		catch(InterruptedException e) {}
+		catch(InterruptedException e) {
+		}
 	}
 
 	public static void countdown() {
