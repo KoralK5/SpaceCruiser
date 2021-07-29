@@ -3,14 +3,14 @@ import java.util.concurrent.TimeUnit;
 import java.awt.event.KeyEvent;
 
 public class Game {
-    boolean alive = true;
+    int lives = 5;
 	int score = 0;
 	int distance = 0;
 	int difficuilty = 4;
 	
 	int rows = 20;
 	int columns = 80;
-
+    
 	int rocketRow = rows/2;
 	int rocketCol = 2;
 
@@ -28,19 +28,19 @@ public class Game {
 	public void moveSpaceship(int direction) {
 		screen[rocketRow][rocketCol] = " ";
 		if (direction == KeyEvent.VK_UP) {
-			rocketRow--;
+			rocketRow = Math.max(rocketRow-1, 0);
 		}
 
 		else if (direction == KeyEvent.VK_LEFT) {
-			rocketCol--;
+			rocketCol = Math.max(rocketCol-1, 0);
 		}
 		
 		else if (direction == KeyEvent.VK_DOWN) {
-			rocketRow++;
+			rocketRow = Math.min(rocketRow+1, rows-1);
 		}
 
 		else if (direction == KeyEvent.VK_RIGHT) {
-			rocketCol++;
+			rocketCol = Math.min(rocketCol+1, columns-1);
 		}
 		screen[rocketRow][rocketCol] = "🚀";
 	}
@@ -51,36 +51,53 @@ public class Game {
 	}
 
 	public void moveAstroids() {
-		for (int i=0; i<screen.length; i++) {
-			for (int j=0; j<screen[i].length; j++) {
+		for (int i=0; i<rows; i++) {
+			for (int j=0; j<columns; j++) {
 				if (screen[i][j] == "💥") {
 					screen[i][j] = " ";
 					if (j > 0) {
 						screen[i][j-1] = "💥";
+					}
+					if ((i == rocketRow && j == rocketCol) || (i == rocketRow && j == rocketCol+1)) {
+					    lives--;
 					}
 				}
 			}
 		}
 	}
 
-	public int setDifficuilty(int difficuilty) {
-	    return this.difficuilty = difficuilty; 
+	public void shoot() {
+		for (int i=rocketCol+1; i<columns; i++) {
+			if (screen[rocketRow][i] == "💥") {
+				screen[rocketRow][i] = "💨";
+			}
+		}
 	}
 
-	public int addScore(int score) {
-	    return this.score += score; 
+	public void setDifficuilty(int difficuilty) {
+	    this.difficuilty = difficuilty; 
+	}
+
+	public void addScore(int score) {
+	    this.score += score; 
+	}
+	
+	public boolean isOngoing() {
+	    return lives > 0;
 	}
 
 	public void printStats() {
-		String diff = difficuilty==1 ? "easy" : (difficuilty==2 ? "medium" : "hard");
+		String diff = difficuilty==7 ? "easy" : (difficuilty==4 ? "medium" : "hard");
 
 		System.out.println(String.join("", Collections.nCopies(columns, "◼️")));
 		System.out.print("◼️ SPACE CRUISER ◼️ ");
 		System.out.print("Difficuilty: " + diff + " ◼️ ");
-		System.out.println("Score: " + score);
+		System.out.print("Score: " + score + " ◼️ ");
+		System.out.println("Lives: " + String.join(" ", Collections.nCopies(lives, "❤️")));
 	}
 
 	public void printScreen() {
+	    this.moveSpaceship(0);
 		System.out.println(String.join("", Collections.nCopies(columns, "◼️")));
 
 		for (int i = 0; i<rows; i++) {
@@ -90,6 +107,6 @@ public class Game {
 	}
 
     public String toString(){
-        return alive ? "Game Ongoing!" : "Game Ended!";
+        return lives > 0 ? "Game Ongoing" : "Game Ended";
     }
 }
