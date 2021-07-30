@@ -1,7 +1,6 @@
 import java.util.*;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.*;
@@ -13,6 +12,31 @@ class Main {
 	public static void main(String[] args) {
 	    boolean exit = false;
 	    int record = 0;
+
+		JFrame frame = new JFrame();
+		frame.setVisible(true);
+		frame.setFocusable(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent event) {
+				int typed = event.getKeyCode();
+				game.moveSpaceship(typed);
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+		});
+
+		JPanel panel = new JPanel();
+		frame.add(panel);
+
 		while (!exit) {
     		clear();
     		art();
@@ -36,51 +60,32 @@ class Main {
     		space(2);
     		game.setDifficuilty(chooseDifficuilty());
     		countdown();
-    
-    		JFrame frame = new JFrame();
-    		frame.setVisible(true);
-    		frame.setFocusable(true);
-    		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    		
-    		frame.addKeyListener(new KeyListener() {
-    			@Override
-    			public void keyPressed(KeyEvent event) {
-    				int typed = event.getKeyCode();
-    				game.moveSpaceship(typed);
-    			}
-    
-    			@Override
-    			public void keyReleased(KeyEvent e) {
-    			}
-    
-    			@Override
-    			public void keyTyped(KeyEvent e) {
-    			}
-    		});
-    
-            JPanel panel = new JPanel();
-    		frame.add(panel);
-    
+
     		while (game.isOngoing()) {
-    			wait(game.difficuilty*15);
+    			wait(game.difficuilty*15 - game.distance/100);
     			game.distance++;
     
     			clear();
     			game.printStats();
     			game.printScreen();
     
-    			game.moveAstroids();
+    			game.moveObjects();
 
 				if (game.score % 30 == 0) {
 					game.shoot();
 				}
     			
-    			if (game.distance % game.difficuilty == 0 && Math.random() > 0.6) {
+    			if (game.distance % game.difficuilty == 0 && Math.random() > 0.4) {
     				game.score++;
     				game.addAstroid();
+    				
+    				if (Math.random() > 0.9) {
+    				    game.addPresent();
+    				}
     			}
     		}
     		
+			input.nextLine();
     		clear();
     		art();
     		space(2);
@@ -92,7 +97,7 @@ class Main {
     		System.out.println("\n\t\t\tScore: " + game.score);
     		System.out.println("\t\t\tDistance: " + game.distance);
     		
-    		System.out.println("\n\nGo again? ([Y]es or [N]o)");
+    		System.out.print("\n\nGo again? ([Y]es or [N]o): ");
     		String choice = input.nextLine().toLowerCase();
     		
     		exit = (choice == "n" || choice == "no");
@@ -133,14 +138,15 @@ class Main {
 	}
 
 	public static void rules() {
-		System.out.println("\t\t            THE RULES\n");
+		System.out.println("\t\t            THE RULES");
 		System.out.println("\t\t1: Click the graphics screen once");
 		System.out.println("\t\t2: Use arrow keys to avoid all obstacles");
 		System.out.println("\t\t3: Survive as long as possible");
 		System.out.println("\nYou shoot every time you get 30 points");
-		System.out.println("Your Rocket:      🚀");
-		System.out.println("Harmful Astroid:  💥");
-		System.out.println("Harmless Astroid: 💨");
+		System.out.println("\tYour Rocket         : 🚀");
+		System.out.println("\tHarmful Astroid     : 💥");
+		System.out.println("\tHarmless Astroid    : 💨");
+		System.out.println("\tPresent (30 points) : 🎁");
 		System.out.print("\nContinue? ");
 		input.nextLine();
 	}
@@ -151,7 +157,7 @@ class Main {
 		System.out.println("\t\t\t\t2: Medium");
 		System.out.println("\t\t\t\t3: Hard");
 		System.out.print("\n\nDifficuilty (1|2|3): ");
-		return 10 - input.nextInt() * 3;
+		return 12 - input.nextInt() * 3;
 	}
 	
 	public static void wait(int ms) {
