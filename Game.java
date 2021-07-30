@@ -7,10 +7,12 @@ public class Game {
 	int score = 0;
 	int distance = 0;
 	int difficuilty = 4;
+
+	boolean moving = false;
+	int direction;
 	
 	int rows = 20;
 	int columns = 80;
-    
 	int rocketRow = rows/2;
 	int rocketCol = 2;
 
@@ -25,24 +27,26 @@ public class Game {
 		screen[rocketRow][rocketCol] = "🚀";
 	}
 
-	public void moveSpaceship(int direction) {
-		screen[rocketRow][rocketCol] = " ";
-		if (direction == KeyEvent.VK_UP) {
-			rocketRow = Math.max(rocketRow-1, 0);
-		}
+	public void moveSpaceship() {
+		if (moving) {
+			screen[rocketRow][rocketCol] = " ";
+			if (direction == KeyEvent.VK_UP) {
+				rocketRow = Math.max(rocketRow-1, 0);
+			}
 
-		else if (direction == KeyEvent.VK_LEFT) {
-			rocketCol = Math.max(rocketCol-1, 0);
-		}
-		
-		else if (direction == KeyEvent.VK_DOWN) {
-			rocketRow = Math.min(rocketRow+1, rows-1);
-		}
+			else if (direction == KeyEvent.VK_LEFT) {
+				rocketCol = Math.max(rocketCol-1, 0);
+			}
+			
+			else if (direction == KeyEvent.VK_DOWN) {
+				rocketRow = Math.min(rocketRow+1, rows-1);
+			}
 
-		else if (direction == KeyEvent.VK_RIGHT) {
-			rocketCol = Math.min(rocketCol+1, columns-1);
+			else if (direction == KeyEvent.VK_RIGHT) {
+				rocketCol = Math.min(rocketCol+1, columns-1);
+			}
+			screen[rocketRow][rocketCol] = "🚀";
 		}
-		screen[rocketRow][rocketCol] = "🚀";
 	}
 
 	public void addAstroid() {
@@ -112,12 +116,13 @@ public class Game {
 	}
 
 	public void printScreen() {
-	    this.moveSpaceship(0);
+	    this.moveSpaceship();
 		System.out.println(String.join("", Collections.nCopies(columns, "◼️")));
 
-		for (int i = 0; i<rows; i++) {
-			System.out.println("◼️" + String.join("", screen[i]));
+		for (String[] row : screen) {
+			System.out.println("◼️" + String.join("", row));
 		}
+
 		System.out.println(String.join("", Collections.nCopies(columns, "◼️")));
 	}
 
