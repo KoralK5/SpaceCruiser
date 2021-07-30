@@ -49,8 +49,13 @@ public class Game {
 		int location = (int) (Math.random() * (rows-1));
 		screen[location][columns-1] = "💥";
 	}
+	
+	public void addPresent() {
+		int location = (int) (Math.random() * (rows-1));
+		screen[location][columns-1] = "🎁";
+	}
 
-	public void moveAstroids() {
+	public void moveObjects() {
 		for (int i=0; i<rows; i++) {
 			for (int j=0; j<columns; j++) {
 				if (screen[i][j] == "💥") {
@@ -58,8 +63,18 @@ public class Game {
 					if (j > 0) {
 						screen[i][j-1] = "💥";
 					}
-					if ((i == rocketRow && j == rocketCol) || (i == rocketRow && j == rocketCol+1)) {
+					if ((i == rocketRow && j == rocketCol) || (i == rocketRow && j == rocketCol+1) || (i == rocketRow && j == rocketCol-1)) {
 					    lives--;
+					}
+				}
+				else if (screen[i][j] == "🎁") {
+					screen[i][j] = " ";
+					if (j > 0) {
+						screen[i][j-1] = "🎁";
+					}
+					if ((i == rocketRow && j == rocketCol) || (i == rocketRow && j == rocketCol+1) || (i == rocketRow && j == rocketCol-1)) {
+					    this.shoot();
+					    score += 30;
 					}
 				}
 			}
@@ -87,7 +102,7 @@ public class Game {
 	}
 
 	public void printStats() {
-		String diff = difficuilty==7 ? "easy" : (difficuilty==4 ? "medium" : "hard");
+		String diff = difficuilty==9 ? "easy" : (difficuilty==6 ? "medium" : "hard");
 
 		System.out.println(String.join("", Collections.nCopies(columns, "◼️")));
 		System.out.print("◼️ SPACE CRUISER ◼️ ");
