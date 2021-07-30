@@ -21,12 +21,13 @@ class Main {
 		frame.addKeyListener(new KeyListener() {
 			@Override
 			public void keyPressed(KeyEvent event) {
-				int typed = event.getKeyCode();
-				game.moveSpaceship(typed);
+				game.moving = true;
+				game.direction = event.getKeyCode();
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
+				game.moving = false;
 			}
 
 			@Override
@@ -66,10 +67,10 @@ class Main {
     			game.distance++;
     
     			clear();
+				game.moveSpaceship();
+    			game.moveObjects();
     			game.printStats();
     			game.printScreen();
-    
-    			game.moveObjects();
 
 				if (game.score % 30 == 0) {
 					game.shoot();
