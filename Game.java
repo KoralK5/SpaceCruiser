@@ -45,8 +45,8 @@ public class Game {
 			else if (direction == KeyEvent.VK_RIGHT) {
 				rocketCol = Math.min(rocketCol+1, columns-1);
 			}
-			screen[rocketRow][rocketCol] = "🚀";
 		}
+		screen[rocketRow][rocketCol] = "🚀";
 	}
 
 	public void addAstroid() {
