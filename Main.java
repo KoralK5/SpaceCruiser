@@ -67,9 +67,8 @@ class Main {
     			game.distance++;
     
     			clear();
-				game.moveSpaceship();
     			game.moveObjects();
-    			game.printStats();
+				game.moveSpaceship();
     			game.printScreen();
 
 				if (game.score % 30 == 0) {
