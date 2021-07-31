@@ -68,6 +68,7 @@ public class Game {
 						screen[i][j-1] = "💥";
 					}
 					if ((i == rocketRow && j == rocketCol) || (i == rocketRow && j == rocketCol+1) || (i == rocketRow && j == rocketCol-1)) {
+					    screen[i][j-1] = " ";
 					    lives--;
 					}
 				}
@@ -77,6 +78,7 @@ public class Game {
 						screen[i][j-1] = "🎁";
 					}
 					if ((i == rocketRow && j == rocketCol) || (i == rocketRow && j == rocketCol+1) || (i == rocketRow && j == rocketCol-1)) {
+					    screen[i][j-1] = " ";
 					    this.shoot();
 					    score += 30;
 					}
