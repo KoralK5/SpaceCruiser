@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
+import java.lang.Math;
 import java.util.concurrent.TimeUnit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -157,7 +158,7 @@ class Main {
 		System.out.println("\t\t\t\t2: Medium");
 		System.out.println("\t\t\t\t3: Hard");
 		System.out.print("\n\nDifficuilty (1|2|3): ");
-		return 12 - input.nextInt() * 3;
+		return 12 - Math.min(3, Math.max(1, input.nextInt())) * 3;
 	}
 	
 	public static void wait(int ms) {
