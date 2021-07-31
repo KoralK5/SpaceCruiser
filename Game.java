@@ -105,7 +105,7 @@ public class Game {
 	    return lives > 0;
 	}
 
-	public void printStats() {
+	public void printScreen() {
 		String diff = difficuilty==9 ? "easy" : (difficuilty==6 ? "medium" : "hard");
 
 		System.out.println(String.join("", Collections.nCopies(columns, "◼️")));
@@ -113,10 +113,7 @@ public class Game {
 		System.out.print("Difficuilty: " + diff + " ◼️ ");
 		System.out.print("Score: " + score + " ◼️ ");
 		System.out.println("Lives: " + String.join(" ", Collections.nCopies(lives, "❤️")));
-	}
-
-	public void printScreen() {
-	    this.moveSpaceship();
+	    
 		System.out.println(String.join("", Collections.nCopies(columns, "◼️")));
 
 		for (String[] row : screen) {
