@@ -1,9 +1,9 @@
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
 import java.util.concurrent.TimeUnit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.*;
 
 class Main {
 	static Scanner input = new Scanner(System.in);
@@ -75,7 +75,7 @@ class Main {
 					game.shoot();
 				}
     			
-    			if (game.distance % game.difficuilty == 0 && Math.random() > 0.4) {
+                if (game.distance % game.difficuilty == 0 && Math.random() > 0.4) {
     				game.score++;
     				game.addAstroid();
     				
