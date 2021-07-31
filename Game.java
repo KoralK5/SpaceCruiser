@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.awt.event.KeyEvent;
 
 public class Game {
@@ -100,7 +99,7 @@ public class Game {
 	}
 
 	public void addScore(int score) {
-	    this.score += score; 
+	    this.score += score;
 	}
 	
 	public boolean isOngoing() {
