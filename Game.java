@@ -56,11 +56,11 @@ public class Game {
 		if (left) {
 			rocketCol = Math.max(rocketCol-1, 0);
 		}
-		
+
 		if (down) {
 			rocketRow = Math.min(rocketRow+1, rows-1);
 		}
-
+		
 		if (right) {
 			rocketCol = Math.min(rocketCol+1, columns-1);
 		}
@@ -91,6 +91,7 @@ public class Game {
 					    lives--;
 					}
 				}
+				
 				else if (screen[i][j] == "🎁") {
 					screen[i][j] = " ";
 					if (j > 0) {
