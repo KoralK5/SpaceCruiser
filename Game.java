@@ -7,8 +7,10 @@ public class Game {
 	int distance = 0;
 	int difficuilty = 4;
 
-	boolean moving = false;
-	int direction;
+	boolean up;
+	boolean down;
+	boolean right;
+	boolean left;
 	
 	int rows = 20;
 	int columns = 80;
@@ -26,25 +28,43 @@ public class Game {
 		screen[rocketRow][rocketCol] = "🚀";
 	}
 
-	public void moveSpaceship() {
-		if (moving) {
-			screen[rocketRow][rocketCol] = " ";
-			if (direction == KeyEvent.VK_UP) {
-				rocketRow = Math.max(rocketRow-1, 0);
-			}
-
-			else if (direction == KeyEvent.VK_LEFT) {
-				rocketCol = Math.max(rocketCol-1, 0);
-			}
-			
-			else if (direction == KeyEvent.VK_DOWN) {
-				rocketRow = Math.min(rocketRow+1, rows-1);
-			}
-
-			else if (direction == KeyEvent.VK_RIGHT) {
-				rocketCol = Math.min(rocketCol+1, columns-1);
-			}
+	public void setDirection(int direction, boolean move) {
+		if (direction == KeyEvent.VK_UP) {
+			up = move;
 		}
+
+		else if (direction == KeyEvent.VK_LEFT) {
+			left = move;
+		}
+		
+		else if (direction == KeyEvent.VK_DOWN) {
+			down = move;
+		}
+
+		else if (direction == KeyEvent.VK_RIGHT) {
+			right = move;
+		}
+	}
+
+	public void moveSpaceship() {
+		screen[rocketRow][rocketCol] = " ";
+		
+		if (up) {
+			rocketRow = Math.max(rocketRow-1, 0);
+		}
+
+		if (left) {
+			rocketCol = Math.max(rocketCol-1, 0);
+		}
+		
+		if (down) {
+			rocketRow = Math.min(rocketRow+1, rows-1);
+		}
+
+		if (right) {
+			rocketCol = Math.min(rocketCol+1, columns-1);
+		}
+
 		screen[rocketRow][rocketCol] = "🚀";
 	}
 
