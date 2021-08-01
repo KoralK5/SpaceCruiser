@@ -22,13 +22,12 @@ class Main {
 		frame.addKeyListener(new KeyListener() {
 			@Override
 			public void keyPressed(KeyEvent event) {
-				game.moving = true;
-				game.direction = event.getKeyCode();
+				game.setDirection(event.getKeyCode(), true);
 			}
 
 			@Override
-			public void keyReleased(KeyEvent e) {
-				game.moving = false;
+			public void keyReleased(KeyEvent event) {
+				game.setDirection(event.getKeyCode(), false);
 			}
 
 			@Override
