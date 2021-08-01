@@ -115,8 +115,8 @@ class Main {
 
 	public static void art() {
 		try {
-			File myObj = new File("Spaceship.txt");
-			Scanner myReader = new Scanner(myObj);
+			File ship = new File("Spaceship.txt");
+			Scanner myReader = new Scanner(ship);
 			while (myReader.hasNextLine()) {
 				String data = myReader.nextLine();
 				System.out.println(data);
@@ -125,7 +125,7 @@ class Main {
 		}
 
 		catch (FileNotFoundException e) {
-			System.out.println("An error occurred.");
+			System.out.println("Spaceship.txt is not readable or does not exist.");
 			e.printStackTrace();
 		}
 	}
