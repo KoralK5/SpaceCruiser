@@ -121,7 +121,7 @@ class Main {
 				String data = fileReader.nextLine();
 				System.out.println(data);
 			}
-		fileReader.close();
+			fileReader.close();
 		}
 
 		catch (FileNotFoundException e) {
