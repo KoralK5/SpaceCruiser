@@ -116,12 +116,12 @@ class Main {
 	public static void art() {
 		try {
 			File ship = new File("Spaceship.txt");
-			Scanner myReader = new Scanner(ship);
-			while (myReader.hasNextLine()) {
-				String data = myReader.nextLine();
+			Scanner fileReader = new Scanner(ship);
+			while (fileReader.hasNextLine()) {
+				String data = fileReader.nextLine();
 				System.out.println(data);
 			}
-		myReader.close();
+		fileReader.close();
 		}
 
 		catch (FileNotFoundException e) {
