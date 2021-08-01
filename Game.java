@@ -81,26 +81,24 @@ public class Game {
 	public void moveObjects() {
 		for (int i=0; i<rows; i++) {
 			for (int j=0; j<columns; j++) {
-				if (screen[i][j] == "💥") {
+				String obstacle = screen[i][j];
+				if (obstacle == "💥" || obstacle == "🎁") {
 					screen[i][j] = " ";
+					
 					if (j > 0) {
-						screen[i][j-1] = "💥";
+						screen[i][j-1] = obstacle;
 					}
+					
 					if ((i == rocketRow && j == rocketCol) || (i == rocketRow && j == rocketCol+1) || (i == rocketRow && j == rocketCol-1)) {
 					    screen[i][j-1] = " ";
-					    lives--;
-					}
-				}
-				
-				else if (screen[i][j] == "🎁") {
-					screen[i][j] = " ";
-					if (j > 0) {
-						screen[i][j-1] = "🎁";
-					}
-					if ((i == rocketRow && j == rocketCol) || (i == rocketRow && j == rocketCol+1) || (i == rocketRow && j == rocketCol-1)) {
-					    screen[i][j-1] = " ";
-					    this.shoot();
-					    score += 30;
+
+						if (obstacle == "💥") {
+					    	lives--;
+						}
+						else {
+							this.shoot();
+					    	score += 30;
+						}
 					}
 				}
 			}
