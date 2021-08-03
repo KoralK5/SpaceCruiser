@@ -6,7 +6,7 @@ public class Game {
     int lives = 5;
 	int score = 0;
 	int distance = 0;
-	int difficuilty = 4;
+	int difficulty = 4;
 	
     // Used for screen construction and obstacle movement.
 	int rows = 20;
@@ -151,9 +151,9 @@ public class Game {
 		}
 	}
 
-    // Sets the difficuilty of the game.
-	public void setDifficuilty(int difficuilty) {
-	    this.difficuilty = difficuilty; 
+    // Sets the difficulty of the game.
+	public void setDifficulty(int difficulty) {
+	    this.difficulty = difficulty; 
 	}
     
     // Returns whether the user has more than 0 lives as a boolean.
@@ -164,7 +164,7 @@ public class Game {
     /*
     Prints:
         screen column size amount of blocks,
-        difficuilty as a String (easy if 9, medium if 6, hard otherwise),
+        difficulty as a String (easy if 9, medium if 6, hard otherwise),
         score as an int,
         lives as heart emoji Strings,
         screen column size amount of blocks.
@@ -175,11 +175,11 @@ public class Game {
         screen column size amount of blocks.
 	*/
 	public void printScreen() {
-		String diff = difficuilty==9 ? "easy" : (difficuilty==6 ? "medium" : "hard");
+		String diff = difficulty==9 ? "easy" : (difficulty==6 ? "medium" : "hard");
 
 		System.out.println(String.join("", Collections.nCopies(columns, "◼️")));
 		System.out.print("◼️ SPACE CRUISER ◼️ ");
-		System.out.print("Difficuilty: " + diff + " ◼️ ");
+		System.out.print("Difficulty: " + diff + " ◼️ ");
 		System.out.print("Score: " + score + " ◼️ ");
 		System.out.println("Lives: " + String.join(" ", Collections.nCopies(lives, "❤️")));
 	    
