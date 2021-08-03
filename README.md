@@ -5,8 +5,8 @@ A Java game made for ICS3U8G
 
 ## How To Play
 
-1. Press {enter} to switch directions
+1. Click the graphics screen once
 
-2. Avoid all obstancles
+2. Use arrow keys to avoid all obstacles
 
 3. Survive as long as possible
