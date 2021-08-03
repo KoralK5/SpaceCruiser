@@ -35,16 +35,14 @@ class Main {
 		JPanel panel = new JPanel();
 		frame.add(panel);
 
-        boolean exit = false;
         int record = 0;
-
-		while (!exit) {
+		while (true) {
             clear();
             art();
             space(4);
             System.out.println("\t\tWELCOME TO SPACE CRUISER!");
             space(4);
-            System.out.print("\t\t  Press enter to play:  ");
+            System.out.print("\t\t  Press enter to play: ");
             input.nextLine();
 
             clear();
@@ -89,6 +87,7 @@ class Main {
             clear();
             art();
             space(2);
+            
             if (game.score > record) {
                 System.out.println("\t\t\tNEW RECORD!!!");
                 record = game.score;
@@ -99,8 +98,15 @@ class Main {
 
             System.out.print("\n\nGo again? ([Y]es or [N]o): ");
             String choice = input.nextLine().toLowerCase();
-
-            exit = (choice == "n" || choice == "no");
+            
+            if (choice.equals("n") || choice.equals("no")) {
+                clear();
+                art();
+                space(2);
+                System.out.println("\t\t\tThanks For Playing!");
+                System.out.println("\t\t\t       Bye!");
+                break;
+            }
 		}
 	}
 
