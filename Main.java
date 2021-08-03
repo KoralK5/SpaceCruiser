@@ -11,7 +11,7 @@ class Main {
     static Game game;
     
     public static void main(String[] args) {
-        // Using javax.swing, an interactable server graphics screen is created
+        // Using javax.swing, an interactable server graphics screen is created.
 		JFrame frame = new JFrame();
 		frame.setVisible(true);
 		frame.setFocusable(true);
