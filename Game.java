@@ -2,11 +2,11 @@ import java.util.*;
 import java.awt.event.KeyEvent;
 
 public class Game {
-    	int lives = 5;
+    int lives = 5;
 	int score = 0;
 	int distance = 0;
 	int difficuilty = 4;
-
+	
 	int rows = 20;
 	int columns = 80;
 	int rocketRow = rows/2;
@@ -95,6 +95,7 @@ public class Game {
 						if (obstacle == "💥") {
 					    	lives--;
 						}
+						
 						else {
 							this.shoot();
 					    	score += 30;
