@@ -19,7 +19,7 @@ class Main {
 		
 		// A KeyListener method is called on the graphics screen frame.
 		frame.addKeyListener(new KeyListener() {
-		    // @Overrides overrides any other class methods named keyPressed, keyReleased, and keyTyped.
+		    // @Override overrides any other class methods named keyPressed, keyReleased, and keyTyped.
 
 		    // When a key is pressed, the key's integer representation is passed into the setDirection method
 		    // using the getKeyCode method along with true, indicating that it's pressed.
