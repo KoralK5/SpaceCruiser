@@ -7,13 +7,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 class Main {
-	static Scanner input = new Scanner(System.in);
-	static Game game = new Game();
+    static Scanner input = new Scanner(System.in);
+    static Game game = new Game();
 
-	public static void main(String[] args) {
-	    boolean exit = false;
-	    int record = 0;
-
+    public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setVisible(true);
 		frame.setFocusable(true);
@@ -38,81 +35,84 @@ class Main {
 		JPanel panel = new JPanel();
 		frame.add(panel);
 
-		while (!exit) {
-    		clear();
-    		art();
-    		space(4);
-    		System.out.println("\t\tWELCOME TO SPACE CRUISER!");
-    		space(4);
-    		System.out.print("\t\t  Press enter to play:  ");
-    		input.nextLine();
-    		
-    		clear();
-    		art();
-    		space(2);
-    		story();
-    
-    		clear();
-    		art();
-    		rules();
-    		
-    		clear();
-    		art();
-    		space(2);
-    		game.setDifficuilty(chooseDifficuilty());
-    		countdown();
+        boolean exit = false;
+        int record = 0;
 
-    		while (game.isOngoing()) {
-    			wait(game.difficuilty*15 - game.distance/100);
-    			game.distance++;
-    
-    			clear();
-    			game.moveObjects();
+		while (!exit) {
+            clear();
+            art();
+            space(4);
+            System.out.println("\t\tWELCOME TO SPACE CRUISER!");
+            space(4);
+            System.out.print("\t\t  Press enter to play:  ");
+            input.nextLine();
+
+            clear();
+            art();
+            space(2);
+            story();
+
+            clear();
+            art();
+            rules();
+
+            clear();
+            art();
+            space(2);
+            game.setDifficuilty(chooseDifficuilty());
+            countdown();
+
+            while (game.isOngoing()) {
+                wait(game.difficuilty*15 - game.distance/100);
+                game.distance++;
+
+                clear();
+                game.moveObjects();
 				game.moveSpaceship();
-    			game.printScreen();
+                game.printScreen();
 
 				if (game.score % 30 == 0) {
 					game.shoot();
 				}
     			
                 if (game.distance % game.difficuilty == 0 && Math.random() > 0.4) {
-    				game.score++;
-    				game.addAstroid();
+                    game.score++;
+                    game.addAstroid();
     				
-    				if (Math.random() > 0.9) {
-    				    game.addPresent();
-    				}
-    			}
-    		}
-    		
+                    if (Math.random() > 0.9) {
+                        game.addPresent();
+                    }
+                }
+            }
+
 			input.nextLine();
-    		clear();
-    		art();
-    		space(2);
-    		if (game.score > record) {
-    		    System.out.println("\t\t\tNEW RECORD!!!");
-    		    record = game.score;
-    		}
-    		
-    		System.out.println("\n\t\t\tScore: " + game.score);
-    		System.out.println("\t\t\tDistance: " + game.distance);
-    		
-    		System.out.print("\n\nGo again? ([Y]es or [N]o): ");
-    		String choice = input.nextLine().toLowerCase();
-    		
-    		exit = (choice == "n" || choice == "no");
+            clear();
+            art();
+            space(2);
+            if (game.score > record) {
+                System.out.println("\t\t\tNEW RECORD!!!");
+                record = game.score;
+            }
+
+            System.out.println("\n\t\t\tScore: " + game.score);
+            System.out.println("\t\t\tDistance: " + game.distance);
+
+            System.out.print("\n\nGo again? ([Y]es or [N]o): ");
+            String choice = input.nextLine().toLowerCase();
+
+            exit = (choice == "n" || choice == "no");
 		}
 	}
 
-	public static void clear() {
+    public static void clear() {
 		System.out.println("\033[H\033[2J");
-	}
+    }
 
-	public static void space(int lines) {
+    public static void space(int lines) {
 		System.out.println(String.join("", Collections.nCopies(lines, "\n")));
-	}
+    }
 
-	public static void art() {
+    public static void art() {
 		try {
 			File ship = new File("Spaceship.txt");
 			Scanner fileReader = new Scanner(ship);
@@ -129,12 +129,12 @@ class Main {
 		}
 	}
 
-	public static void story() {
+    public static void story() {
 		System.out.println("Ever since the Earth was destroyed, humanity has been left stranded in a space cruiser with little to no resources left.\n");
-		System.out.println("With the objective of searching for a sustainable planet, you set foot in your spaceship and set sail into the abyss of space...\n");
-		System.out.println("Good luck!\n");
-		System.out.print("Continue? ");
-		input.nextLine();
+        System.out.println("With the objective of searching for a sustainable planet, you set foot in your spaceship and set sail into the abyss of space...\n");
+        System.out.println("Good luck!\n");
+        System.out.print("Continue? ");
+        input.nextLine();
 	}
 
 	public static void rules() {
@@ -168,7 +168,7 @@ class Main {
 		}
 	}
 
-	public static void countdown() {
+    public static void countdown() {
 		Main.clear();
 		System.out.print(String.join("", Collections.nCopies(2, "\t\t\t\t|\n")));
 		System.out.println("\t\t\t\t3");
