@@ -10,7 +10,6 @@ class Main {
     static Scanner input = new Scanner(System.in);
     static Game game;
     
-    
     public static void main(String[] args) {
         // Using javax.swing, an interactable server graphics screen is created
 		JFrame frame = new JFrame();
