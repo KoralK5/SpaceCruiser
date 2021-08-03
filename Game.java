@@ -20,7 +20,7 @@ public class Game {
 	boolean right;
 	boolean left;
 
-    // Creating a 2d array to contain and display the game
+    // Creating a 2d array to contain and display the game.
 	String screen[][] = new String[rows][columns];
 	
 	// Filling in the screen with empty spaces and a rocket.
