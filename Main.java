@@ -84,7 +84,7 @@ class Main {
 				game.moveSpaceship();
                 game.printScreen();
                 
-                // The rocket fires if it gets a present (+30 pts) or 30 points on its own.
+                // The rocket fires if it gets a present (+30 points) or 30 points on its own.
 				if (game.score % 30 == 0) {
 					game.shoot();
 				}
