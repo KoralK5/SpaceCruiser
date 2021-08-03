@@ -124,7 +124,7 @@ class Main {
                 art();
                 space(2);
                 System.out.println("\t\t\tThanks For Playing!");
-                space(2);
+                space(1);
                 System.out.println("\t\t\tBest Score: " + record);
                 break;
             }
