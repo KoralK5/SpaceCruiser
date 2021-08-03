@@ -1,7 +1,7 @@
 # SpaceCruiser
 A Java game made for ICS3U8G
 
-![image](https://user-images.githubusercontent.com/62809012/127232145-e2af55d9-8858-4695-bc5b-8565dbffd3eb.png)
+![SpaceCruiser](https://user-images.githubusercontent.com/62809012/127981636-02ff1b8a-a148-4436-8ce2-35cca33f3430.gif)
 
 ## How To Play
 
