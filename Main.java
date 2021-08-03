@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 
 class Main {
     static Scanner input = new Scanner(System.in);
-    static Game game = new Game();
+    static Game game;
 
     public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -37,6 +37,8 @@ class Main {
 
         int record = 0;
 		while (true) {
+		    game = new Game();
+		    
             clear();
             art();
             space(4);
@@ -104,6 +106,7 @@ class Main {
                 art();
                 space(2);
                 System.out.println("\t\t\tThanks For Playing!");
+                space(2);
                 System.out.println("\t\t\t       Bye!");
                 break;
             }
