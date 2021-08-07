@@ -11,7 +11,7 @@ class Main {
     static Game game;
     
     public static void main(String[] args) {
-        // Using javax.swing, an interactable server graphics screen is created.
+        // Using javax.swing, an interactable server graphics screen is created
 		JFrame frame = new JFrame();
 		frame.setVisible(true);
 		frame.setFocusable(true);
@@ -19,7 +19,7 @@ class Main {
 		
 		// A KeyListener method is called on the graphics screen frame.
 		frame.addKeyListener(new KeyListener() {
-		    // @Override overrides any other class methods named keyPressed, keyReleased, and keyTyped.
+		    // @Overrides overrides any other class methods named keyPressed, keyReleased, and keyTyped.
 
 		    // When a key is pressed, the key's integer representation is passed into the setDirection method
 		    // using the getKeyCode method along with true, indicating that it's pressed.
@@ -37,7 +37,7 @@ class Main {
 
             // This method is unnecessary, but is required for the addKeyListener function.
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyTyped(KeyEvent event) {
 			}
 		});
         
@@ -84,7 +84,7 @@ class Main {
 				game.moveSpaceship();
                 game.printScreen();
                 
-                // The rocket fires if it gets a present (+30 points) or 30 points on its own.
+                // The rocket fires if it gets a present (+30 pts) or 30 points on its own.
 				if (game.score % 30 == 0) {
 					game.shoot();
 				}
